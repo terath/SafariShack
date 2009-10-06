@@ -8,6 +8,7 @@
 
 #import "LOL.h"
 #import "Chatty.h"
+#import "SafariShackPlugIn.h"
 
 @implementation LOL
 
@@ -35,8 +36,8 @@
 
 - (NSString *)threadIdForPostElement:(DOMHTMLElement *)element
 {
+	// Get the thread id from the onClick event of the closepost anchor.
 	DOMHTMLElement *closePostElement = (DOMHTMLElement *)[[element getElementsByClassName:@"closepost"] item:0];
-
 	NSString *onClick = [closePostElement getAttribute:@"onClick"];
 	NSRange functionCallRange = [onClick rangeOfString:@"close_post("];
 	NSRange closeParenRange = [onClick rangeOfString:@")"];
@@ -48,10 +49,11 @@
 
 - (NSString *)moderationForThreadId:(NSString *)threadId inDocument:(DOMDocument *)document
 {
+	// Read the moderation from the class of the first div (child node) in the thread item.
 	DOMHTMLElement *itemElement = (DOMHTMLElement *)
 	[[[document getElementById:[@"item_" stringByAppendingString:threadId]] getElementsByClassName:@"div"] item:0];
 	NSString *classes = [itemElement getAttribute:@"class"];
-	/* fpmod_offtopic', 'fpmod_nws', 'fpmod_stupid', 'fpmod_informative', 'fpmod_political */
+
 	if([classes rangeOfString:@"fpmod_offtopic"].location != NSNotFound)
 		return @"&moderation=fpmod_offtopic";
 	else if([classes rangeOfString:@"fpmod_nws"].location != NSNotFound)
@@ -68,6 +70,7 @@
 
 - (void)addLinkForThreadId:(NSString *)threadId withTag:(NSString *)tagName withColor:(NSString *)color forUser:(NSString *)username toElement:(DOMHTMLElement *)element forDocument:(DOMDocument *)document
 {
+	// Format a lol link. Formatting swiped from thomw's shacklol script.
 	NSString *link = [NSString stringWithFormat:@" [ <a id='%@%@' style='padding:0pt 0.25em;cursor:pointer;color:rgb(%@);text-decoration:underline;' onclick='lol.lolThreadId_withTag_forUser_withModeration_(\"%@\",\"%@\",\"%@\",\"%@\");'>%@</a> ] ",
 					  tagName, threadId, color, threadId, tagName, username, [self moderationForThreadId:threadId inDocument:document], tagName];	
 	
@@ -76,18 +79,23 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {	
+	// Get the reply from thomw's server.	
 	NSString *messageString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-	if([messageString rangeOfString:@"ok "].location != NSNotFound)
-	{		
-		NSString *anchorId = [[messageString componentsSeparatedByString:@" "] objectAtIndex:1];
+	
+	// Check the first three characters of the reply for a message indicating that the lol worked.	
+	if([messageString rangeOfString:@"ok "].location == 0)
+	{				
+		// Grab the current document and make sure we're still looking at a chatty.		 
+		DOMDocument *document = [[_chatty.webView mainFrame] DOMDocument];
+		if(![SafariShackPlugIn isShackChattyDocument:document]) return;
 		
-		WebFrame* frame = [_chatty.webView mainFrame];	
-		if(![frame DOMDocument]) return;
-		DOMDocument *document = [frame DOMDocument];		
+		// Find the anchor tag used to lol.
+		NSString *anchorId = [[messageString componentsSeparatedByString:@" "] objectAtIndex:1];				
 		DOMHTMLElement *anchorElement = (DOMHTMLElement *)[document getElementById:anchorId];
 		if(!anchorElement)
 			return;
 
+		// Modify the anchor text and change the url to point to the user's shacklol info page.
 		NSRange threadIdRange = [anchorId rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
 		NSString *tag = [anchorId substringToIndex:threadIdRange.location];
 		anchorElement.innerText = [[tag uppercaseString] stringByAppendingString:@"'D"];
@@ -98,18 +106,21 @@
 		
 	} 
 	else
+	{
+		// The lol failed. Display the reply as an alert box.
 		[self alert:messageString];	
+	}
 }
 
 - (void)lolThreadId:(NSString *)threadId withTag:(NSString *)tagName forUser:(NSString *)username withModeration:(NSString *)moderation
 {					
+	// User must be logged in to lol.
 	if([username isEqualToString:@""])
 	{
 		[self alert:@"You have to be logged in."];
-	}
+	}	
 	
-	_lastTag = tagName;
-	
+	// Send a request to thomw's server to lol a thread.
 	NSString *requestString =
 		[NSString stringWithFormat:@"http://lmnopc.com/greasemonkey/shacklol/report.php?who=%@&what=%@&tag=%@&version=20090826%@",
 		 username, threadId, tagName, moderation];
@@ -121,24 +132,34 @@
 {	
 	_chatty = [chatty retain];
 	
-	DOMNodeList *postElements = [chatty.document getElementsByClassName:@"postmeta"];
+	WebView *webView = _chatty.webView;
+	
+	// Add this object to the scripting engine so that the page send messages.
+	WebScriptObject *scriptObject = [webView windowScriptObject];		
+	[scriptObject setValue:self forKey:@"lol"]; 	  
+
+	// Add lol tags to each post.
+	DOMDocument *document = [[webView mainFrame] DOMDocument];		
+	DOMNodeList *postElements = [document getElementsByClassName:@"postmeta"];
 	for(int elementIndex = 0; elementIndex < [postElements length]; elementIndex++)
 	{	
-		DOMHTMLElement *childElement = (DOMHTMLElement *)[chatty.document createElement:@"div"];
+		DOMHTMLElement *childElement = (DOMHTMLElement *)[document createElement:@"div"];
 		[childElement setAttribute:@"style" value:@"display:inline;float:none;padding-left:10px;font-size:14px;"];
 		DOMElement *postElement = (DOMElement *)[postElements item:elementIndex];
 		NSString *threadId = [self threadIdForPostElement:(DOMHTMLElement *)postElement];
 		
-		[self addLinkForThreadId:threadId withTag:@"lol" withColor:@"255,136,0" forUser:chatty.username toElement:childElement forDocument:chatty.document];
-		[self addLinkForThreadId:threadId withTag:@"inf" withColor:@"0,153,204" forUser:chatty.username toElement:childElement forDocument:chatty.document];
-		[self addLinkForThreadId:threadId withTag:@"unf" withColor:@"255,0,0" forUser:chatty.username toElement:childElement forDocument:chatty.document];
-		[self addLinkForThreadId:threadId withTag:@"tag" withColor:@"119,187,34" forUser:chatty.username toElement:childElement forDocument:chatty.document];
-		[self addLinkForThreadId:threadId withTag:@"wtf" withColor:@"192,0,192" forUser:chatty.username toElement:childElement forDocument:chatty.document];
+		[self addLinkForThreadId:threadId withTag:@"lol" withColor:@"255,136,0" forUser:chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"inf" withColor:@"0,153,204" forUser:chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"unf" withColor:@"255,0,0" forUser:chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"tag" withColor:@"119,187,34" forUser:chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"wtf" withColor:@"192,0,192" forUser:chatty.username toElement:childElement forDocument:document];
 
 		[postElement appendChild:childElement];	
 	}	
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector { return NO; }
+/* Don't exclude the script callback from the scripting engine.
+ */
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector { if(aSelector == @selector(lolThreadId:withTag:forUser:withModeration:)) return NO; }
 
 @end

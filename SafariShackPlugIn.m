@@ -29,7 +29,7 @@
 	return [usernameElement.innerText stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 }
 
-- (BOOL) isShackChattyDocument:(DOMDocument *)document
++ (BOOL) isShackChattyDocument:(DOMDocument *)document
 {
 	NSString *url = [document URL];
 	return [url rangeOfString:@"laryn.x"].location != NSNotFound;
@@ -40,13 +40,13 @@
     WebView* webView = [n object];
 	WebFrame* frame = [webView mainFrame];
 	if(![frame DOMDocument]) return;
-	if(![self isShackChattyDocument:[frame DOMDocument]]) return;
-	WebScriptObject *scriptObject = [webView windowScriptObject];	
+	if(![SafariShackPlugIn isShackChattyDocument:[frame DOMDocument]]) return;
+
+	Chatty *chatty = [[[Chatty alloc] initForUsername:[self usernameForDocument:[frame DOMDocument]] withWebView:webView] autorelease];	
 	
-	Chatty *chatty = [[[Chatty alloc] initWithDocument:[frame DOMDocument] forUsername:[self usernameForDocument:[frame DOMDocument]] withWebView:webView] autorelease];	
+	/* Add new improvement modules here. Eventually these will go into a list and be toggled via menu.
+	 */
 	LOL *lol = [[[LOL alloc] init] autorelease];
-	
-	[scriptObject setValue:lol forKey:@"lol"];	
 	[lol improveTheChatty:chatty];
 }
 

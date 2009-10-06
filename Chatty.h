@@ -11,17 +11,17 @@
 @class DOMDocument;
 @class WebView;
 
+/* Contains information about the chatty that may be useful across different improvements.
+ */
 @interface Chatty : NSObject {
 
-	DOMDocument *document;
 	NSString *username;
 	WebView *webView;
 }
 
-@property(readonly) DOMDocument *document;
 @property(readonly) NSString *username;
 @property(readonly) WebView *webView;
 
-- (id) initWithDocument:(DOMDocument *)doc forUsername:(NSString *)user withWebView:(WebView *)view;
+- (id) initForUsername:(NSString *)user withWebView:(WebView *)view;
 
 @end

@@ -13,11 +13,13 @@
 @interface LOL : NSObject <ShackImprovement> {
 
 	Chatty *_chatty;
-	NSString *_lastTag;
 	NSMutableDictionary *anchors;
 }
 
 - (void)improveTheChatty:(Chatty *)chatty;
+
+/* Called by java-script, applies a lol tag to a thread.
+ */
 - (void)lolThreadId:(NSString *)threadId withTag:(NSString *)tagName forUser:(NSString *)username withModeration:(NSString *)moderation;
 
 @end

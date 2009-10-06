@@ -11,13 +11,12 @@
 
 @implementation Chatty
 
-@synthesize document, username, webView;
+@synthesize username, webView;
 
-- (id) initWithDocument:(DOMDocument *)doc forUsername:(NSString *)user withWebView:(WebView *)view;
+- (id) initForUsername:(NSString *)user withWebView:(WebView *)view;
 {
 	self = [super init];
 	if (self != nil) {
-		document = [doc retain];
 		username = [user retain];
 		webView = [view retain];
 	}
@@ -26,7 +25,6 @@
 
 - (void) dealloc
 {
-	[document release];
 	[username release];
 	[webView release];
 	[super dealloc];

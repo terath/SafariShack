@@ -8,12 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+@class DOMDocument;
 
+/* The SIMBL plugin principal class.
+ */
 @interface SafariShackPlugIn : NSObject {
 
 }
 
+/* Called when SIMBL loads the bundle.
+ */
 + (void) load;
+
+/* Creates a static instance of the plugin.
+ */
 + (void) createPlugIn;
+
+/* Returns true if the document is a chatty.
+ */
++ (BOOL) isShackChattyDocument:(DOMDocument *)document;
 
 @end

@@ -10,8 +10,12 @@
 
 @class Chatty;
 
+/* A protocol adopted by classes that improve the chatty.
+ */
 @protocol ShackImprovement
 
+/* Called after the chatty finishes loading.
+ */
 - (void) improveTheChatty:(Chatty *)chatty;
 
 @end
