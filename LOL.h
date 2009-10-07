@@ -14,12 +14,12 @@
 
 	Chatty *_chatty;
 	NSMutableDictionary *anchors;
+	JSObjectRef *_show_item_fullpost;
 }
 
 - (void)improveTheChatty:(Chatty *)chatty;
 
-/* Called by java-script, applies a lol tag to a thread.
- */
+// Called by java-script, applies a lol tag to a thread. 
 - (void)lolThreadId:(NSString *)threadId withTag:(NSString *)tagName forUser:(NSString *)username withModeration:(NSString *)moderation;
 
 @end

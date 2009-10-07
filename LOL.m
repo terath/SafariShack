@@ -128,38 +128,52 @@
 	[[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:requestString]] delegate:self] start];
 }
 
+- (void)addControlsToDocument:(DOMDocument *)document
+{
+	DOMNodeList *postElements = [document getElementsByClassName:@"postmeta"];
+	for(int elementIndex = 0; elementIndex < [postElements length]; elementIndex++)
+	{	
+		DOMElement *postElement = (DOMElement *)[postElements item:elementIndex];
+		if([postElement getElementsByClassName:@"lol_control"].length > 0) continue;
+		
+		DOMHTMLElement *childElement = (DOMHTMLElement *)[document createElement:@"div"];
+		[childElement setAttribute:@"style" value:@"display:inline;float:none;padding-left:10px;font-size:14px;"];
+		[childElement setAttribute:@"class" value:@"lol_control"];
+		NSString *threadId = [self threadIdForPostElement:(DOMHTMLElement *)postElement];
+		
+		[self addLinkForThreadId:threadId withTag:@"lol" withColor:@"255,136,0" forUser:_chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"inf" withColor:@"0,153,204" forUser:_chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"unf" withColor:@"255,0,0" forUser:_chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"tag" withColor:@"119,187,34" forUser:_chatty.username toElement:childElement forDocument:document];
+		[self addLinkForThreadId:threadId withTag:@"wtf" withColor:@"192,0,192" forUser:_chatty.username toElement:childElement forDocument:document];
+		
+		[postElement appendChild:childElement];	
+	}	
+}
+
 - (void)improveTheChatty:(Chatty *)chatty
 {	
 	_chatty = [chatty retain];
 	
 	WebView *webView = _chatty.webView;
-	
-	// Add this object to the scripting engine so that the page send messages.
+
+	// Add this object to the scripting engine so that the page sends messages.
 	WebScriptObject *scriptObject = [webView windowScriptObject];		
-	[scriptObject setValue:self forKey:@"lol"]; 	  
-
-	// Add lol tags to each post.
-	DOMDocument *document = [[webView mainFrame] DOMDocument];		
-	DOMNodeList *postElements = [document getElementsByClassName:@"postmeta"];
-	for(int elementIndex = 0; elementIndex < [postElements length]; elementIndex++)
-	{	
-		DOMHTMLElement *childElement = (DOMHTMLElement *)[document createElement:@"div"];
-		[childElement setAttribute:@"style" value:@"display:inline;float:none;padding-left:10px;font-size:14px;"];
-		DOMElement *postElement = (DOMElement *)[postElements item:elementIndex];
-		NSString *threadId = [self threadIdForPostElement:(DOMHTMLElement *)postElement];
-		
-		[self addLinkForThreadId:threadId withTag:@"lol" withColor:@"255,136,0" forUser:chatty.username toElement:childElement forDocument:document];
-		[self addLinkForThreadId:threadId withTag:@"inf" withColor:@"0,153,204" forUser:chatty.username toElement:childElement forDocument:document];
-		[self addLinkForThreadId:threadId withTag:@"unf" withColor:@"255,0,0" forUser:chatty.username toElement:childElement forDocument:document];
-		[self addLinkForThreadId:threadId withTag:@"tag" withColor:@"119,187,34" forUser:chatty.username toElement:childElement forDocument:document];
-		[self addLinkForThreadId:threadId withTag:@"wtf" withColor:@"192,0,192" forUser:chatty.username toElement:childElement forDocument:document];
-
-		[postElement appendChild:childElement];	
-	}	
+	if([[scriptObject evaluateWebScript:@"return lol"] isKindOfClass:[WebUndefined class]])
+		[scriptObject setValue:self forKey:@"lol"];
+	
+	// Add lol tags to each post. Get the child frames also, so that the
+	// posts loaded into the iframe get controls.
+	[self addControlsToDocument:[[webView mainFrame] DOMDocument]];
+	for(WebFrame *childFrame in [[webView mainFrame] childFrames])
+		[self addControlsToDocument:[childFrame DOMDocument]];
 }
 
 /* Don't exclude the script callback from the scripting engine.
  */
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector { if(aSelector == @selector(lolThreadId:withTag:forUser:withModeration:)) return NO; }
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)aSelector 
+{ 
+	return aSelector == @selector(lolThreadId:withTag:forUser:withModeration:) ? NO : YES;
+}
 
 @end

@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #include "Chatty.h"
 #include "LOL.h"
+#include "ModMarker.h"
 
 @implementation SafariShackPlugIn
 
@@ -44,10 +45,13 @@
 
 	Chatty *chatty = [[[Chatty alloc] initForUsername:[self usernameForDocument:[frame DOMDocument]] withWebView:webView] autorelease];	
 	
-	/* Add new improvement modules here. Eventually these will go into a list and be toggled via menu.
-	 */
+	// Add new improvement modules here. Eventually these will go into a list and be toggled via menu.
+	//
 	LOL *lol = [[[LOL alloc] init] autorelease];
 	[lol improveTheChatty:chatty];
+	
+	ModMarker *modMarker = [[[ModMarker alloc] init] autorelease];
+	[modMarker improveTheChatty:chatty];
 }
 
 - (void) observeNotifications {

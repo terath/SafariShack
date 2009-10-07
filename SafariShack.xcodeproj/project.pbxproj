@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2749990C107BAC6D0063D48A /* ModMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749990B107BAC6D0063D48A /* ModMarker.m */; };
 		27B3E578107AA81F0006596A /* SafariShackPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E577107AA81F0006596A /* SafariShackPlugIn.m */; };
 		27B3E581107AAB7E0006596A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B3E580107AAB7E0006596A /* WebKit.framework */; };
 		27B3E70C107AC5730006596A /* Chatty.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E70B107AC5730006596A /* Chatty.m */; };
@@ -20,6 +21,8 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		2749990A107BAC6D0063D48A /* ModMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModMarker.h; sourceTree = "<group>"; };
+		2749990B107BAC6D0063D48A /* ModMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModMarker.m; sourceTree = "<group>"; };
 		27B3E576107AA81F0006596A /* SafariShackPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariShackPlugIn.h; sourceTree = "<group>"; };
 		27B3E577107AA81F0006596A /* SafariShackPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafariShackPlugIn.m; sourceTree = "<group>"; };
 		27B3E580107AAB7E0006596A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
@@ -122,6 +125,8 @@
 			children = (
 				27B3E70E107AC5BE0006596A /* LOL.h */,
 				27B3E70F107AC5BE0006596A /* LOL.m */,
+				2749990A107BAC6D0063D48A /* ModMarker.h */,
+				2749990B107BAC6D0063D48A /* ModMarker.m */,
 			);
 			name = ShackImprovements;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 				27B3E578107AA81F0006596A /* SafariShackPlugIn.m in Sources */,
 				27B3E70C107AC5730006596A /* Chatty.m in Sources */,
 				27B3E710107AC5BE0006596A /* LOL.m in Sources */,
+				2749990C107BAC6D0063D48A /* ModMarker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
