@@ -13,20 +13,13 @@
 
 @synthesize username, webView, bundle;
 
-- (NSBundle *)getBundle
-{
-	NSString* pathToBundle = [[NSBundle mainBundle] pathForResource:@"SafariShack"
-                                                             ofType:@"bundle"];
-    return [NSBundle bundleWithPath:pathToBundle];
-}
-
 - (id) initForUsername:(NSString *)user withWebView:(WebView *)view;
 {
 	self = [super init];
 	if (self != nil) {
 		username = [user retain];
 		webView = [view retain];
-		bundle = [self getBundle];
+		bundle = [NSBundle bundleForClass:[self class]];
 	}
 	return self;
 }

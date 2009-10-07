@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		27495C6B107C3BB000F93C4D /* lol.gif in Resources */ = {isa = PBXBuildFile; fileRef = 27495C6A107C3BB000F93C4D /* lol.gif */; };
+		27495E24107C527600F93C4D /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 27495E23107C527600F93C4D /* Base64.m */; };
+		27495E39107C53F600F93C4D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 27495E38107C53F600F93C4D /* libcrypto.dylib */; };
+		27495E3D107C541A00F93C4D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27495E3C107C541A00F93C4D /* WebKit.framework */; };
 		2749990C107BAC6D0063D48A /* ModMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749990B107BAC6D0063D48A /* ModMarker.m */; };
 		27B3E578107AA81F0006596A /* SafariShackPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E577107AA81F0006596A /* SafariShackPlugIn.m */; };
-		27B3E581107AAB7E0006596A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B3E580107AAB7E0006596A /* WebKit.framework */; };
 		27B3E70C107AC5730006596A /* Chatty.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E70B107AC5730006596A /* Chatty.m */; };
 		27B3E710107AC5BE0006596A /* LOL.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E70F107AC5BE0006596A /* LOL.m */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -23,11 +25,14 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		27495C6A107C3BB000F93C4D /* lol.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lol.gif; sourceTree = "<group>"; };
+		27495E22107C527600F93C4D /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		27495E23107C527600F93C4D /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		27495E38107C53F600F93C4D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = /usr/lib/libcrypto.dylib; sourceTree = "<absolute>"; };
+		27495E3C107C541A00F93C4D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		2749990A107BAC6D0063D48A /* ModMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModMarker.h; sourceTree = "<group>"; };
 		2749990B107BAC6D0063D48A /* ModMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModMarker.m; sourceTree = "<group>"; };
 		27B3E576107AA81F0006596A /* SafariShackPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariShackPlugIn.h; sourceTree = "<group>"; };
 		27B3E577107AA81F0006596A /* SafariShackPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafariShackPlugIn.m; sourceTree = "<group>"; };
-		27B3E580107AAB7E0006596A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
 		27B3E709107AC5520006596A /* ShackImprovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShackImprovement.h; sourceTree = "<group>"; };
 		27B3E70A107AC5730006596A /* Chatty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatty.h; sourceTree = "<group>"; };
 		27B3E70B107AC5730006596A /* Chatty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatty.m; sourceTree = "<group>"; };
@@ -45,7 +50,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
-				27B3E581107AAB7E0006596A /* WebKit.framework in Frameworks */,
+				27495E39107C53F600F93C4D /* libcrypto.dylib in Frameworks */,
+				27495E3D107C541A00F93C4D /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +75,8 @@
 			children = (
 				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
 				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+				27495E38107C53F600F93C4D /* libcrypto.dylib */,
+				27495E3C107C541A00F93C4D /* WebKit.framework */,
 			);
 			name = "Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -92,6 +100,8 @@
 				27B3E709107AC5520006596A /* ShackImprovement.h */,
 				27B3E70A107AC5730006596A /* Chatty.h */,
 				27B3E70B107AC5730006596A /* Chatty.m */,
+				27495E22107C527600F93C4D /* Base64.h */,
+				27495E23107C527600F93C4D /* Base64.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -110,7 +120,6 @@
 				089C167FFE841241C02AAC07 /* AppKit.framework */,
 				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
 				089C1672FE841209C02AAC07 /* Foundation.framework */,
-				27B3E580107AAB7E0006596A /* WebKit.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -201,6 +210,7 @@
 				27B3E70C107AC5730006596A /* Chatty.m in Sources */,
 				27B3E710107AC5BE0006596A /* LOL.m in Sources */,
 				2749990C107BAC6D0063D48A /* ModMarker.m in Sources */,
+				27495E24107C527600F93C4D /* Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
