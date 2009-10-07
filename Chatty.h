@@ -17,10 +17,12 @@
 
 	NSString *username;
 	WebView *webView;
+	NSBundle *bundle;
 }
 
 @property(readonly) NSString *username;
 @property(readonly) WebView *webView;
+@property(readonly) NSBundle *bundle;
 
 - (id) initForUsername:(NSString *)user withWebView:(WebView *)view;
 

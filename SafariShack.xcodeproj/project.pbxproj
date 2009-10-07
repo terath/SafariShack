@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27495C6B107C3BB000F93C4D /* lol.gif in Resources */ = {isa = PBXBuildFile; fileRef = 27495C6A107C3BB000F93C4D /* lol.gif */; };
 		2749990C107BAC6D0063D48A /* ModMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2749990B107BAC6D0063D48A /* ModMarker.m */; };
 		27B3E578107AA81F0006596A /* SafariShackPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E577107AA81F0006596A /* SafariShackPlugIn.m */; };
 		27B3E581107AAB7E0006596A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B3E580107AAB7E0006596A /* WebKit.framework */; };
@@ -21,6 +22,7 @@
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		27495C6A107C3BB000F93C4D /* lol.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lol.gif; sourceTree = "<group>"; };
 		2749990A107BAC6D0063D48A /* ModMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModMarker.h; sourceTree = "<group>"; };
 		2749990B107BAC6D0063D48A /* ModMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModMarker.m; sourceTree = "<group>"; };
 		27B3E576107AA81F0006596A /* SafariShackPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariShackPlugIn.h; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				27495C6A107C3BB000F93C4D /* lol.gif */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
+				27495C6B107C3BB000F93C4D /* lol.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,14 @@
 
 @implementation Chatty
 
-@synthesize username, webView;
+@synthesize username, webView, bundle;
+
+- (NSBundle *)getBundle
+{
+	NSString* pathToBundle = [[NSBundle mainBundle] pathForResource:@"SafariShack"
+                                                             ofType:@"bundle"];
+    return [NSBundle bundleWithPath:pathToBundle];
+}
 
 - (id) initForUsername:(NSString *)user withWebView:(WebView *)view;
 {
@@ -19,6 +26,7 @@
 	if (self != nil) {
 		username = [user retain];
 		webView = [view retain];
+		bundle = [self getBundle];
 	}
 	return self;
 }
