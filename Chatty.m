@@ -6,8 +6,9 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "Chatty.h"
 #include <WebKit/WebKit.h>
+#import "Chatty.h"
+
 
 @implementation Chatty
 

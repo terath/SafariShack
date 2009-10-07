@@ -10,6 +10,7 @@
 #import "Chatty.h"
 #import "ModMarker.h"
 
+
 @implementation ModMarker
 
 - (id) init
@@ -55,11 +56,6 @@
 										  @"172752",nil];  // chris remo
 	}
 	return self;
-}
-
-- (void) alert:(NSString *)message
-{
-	[[NSAlert alertWithMessageText:@"SafariShack" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:message] runModal];
 }
 
 - (void) improveTheChatty:(Chatty *)chatty

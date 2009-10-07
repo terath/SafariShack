@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 #include <openssl/bio.h>
 #include <openssl/evp.h>
+
 
 @interface NSString (Base64)
 

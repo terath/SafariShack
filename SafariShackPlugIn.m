@@ -6,18 +6,14 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "SafariShackPlugIn.h"
 #import <WebKit/WebKit.h>
-#include "Chatty.h"
-#include "LOL.h"
-#include "ModMarker.h"
+#import "Chatty.h"
+#import "LOL.h"
+#import "ModMarker.h"
+#import "SafariShackPlugIn.h"
+
 
 @implementation SafariShackPlugIn
-
-- (void) alert:(NSString *)message
-{
-	[[NSAlert alertWithMessageText:message defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:message] runModal];
-}
 
 - (NSString *)usernameForDocument:(DOMDocument *)document
 {

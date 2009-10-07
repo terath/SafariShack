@@ -8,6 +8,7 @@
 
 #import "Base64.h"
 
+
 @implementation NSString (Base64)
 
 - (NSData *) decodeBase64;

@@ -6,10 +6,12 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "LOL.h"
-#import "Chatty.h"
-#import "SafariShackPlugIn.h"
 #import "Base64.h"
+#import "Chatty.h"
+#import "LOL.h"
+#import "SafariShackPlugIn.h"
+#import "ShortAlert.h"
+
 
 @implementation LOL
 
@@ -27,12 +29,6 @@
 	[_chatty release];
 	[anchors release];
 	[super dealloc];
-}
-
-
-- (void) alert:(NSString *)message
-{
-	[[NSAlert alertWithMessageText:@"SafariShack" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:message] runModal];
 }
 
 - (NSString *)threadIdForPostElement:(DOMHTMLElement *)element
@@ -109,7 +105,7 @@
 	else
 	{
 		// The lol failed. Display the reply as an alert box.
-		[self alert:messageString];	
+		[NSAlert alertWithMessageText:messageString];
 	}
 }
 
@@ -141,7 +137,8 @@
 	// User must be logged in to lol.
 	if([username isEqualToString:@""])
 	{
-		[self alert:@"You have to be logged in."];
+		[NSAlert alertWithMessageText:@"You must be logged in to lol."];
+		return;
 	}	
 	
 	// Send a request to thomw's server to lol a thread.

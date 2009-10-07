@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "ShackImprovement.h"
 
+
 @interface ModMarker : NSObject <ShackImprovement> {
 
 	NSArray *_mods;

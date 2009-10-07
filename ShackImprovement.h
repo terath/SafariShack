@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 @class Chatty;
 
 /* A protocol adopted by classes that improve the chatty.
