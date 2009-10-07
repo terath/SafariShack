@@ -68,7 +68,7 @@
 - (void)addLinkForThreadId:(NSString *)threadId withTag:(NSString *)tagName withColor:(NSString *)color forUser:(NSString *)username toElement:(DOMHTMLElement *)element forDocument:(DOMDocument *)document
 {
 	// Format a lol link. Formatting swiped from thomw's shacklol script.
-	NSString *link = [NSString stringWithFormat:@" [ <a id='%@%@' style='padding:0pt 0.25em;cursor:pointer;color:rgb(%@);text-decoration:underline;' onclick='lol.lolThreadId_withTag_forUser_withModeration_(\"%@\",\"%@\",\"%@\",\"%@\");'>%@</a> ] ",
+	NSString *link = [NSString stringWithFormat:@"<a id='%@%@' style='padding:0pt 0.25em;cursor:pointer;color:rgb(34,34,34);background-color:rgb(%@);text-decoration:none;-webkit-border-radius:4px' onclick='lol.lolThreadId_withTag_forUser_withModeration_(\"%@\",\"%@\",\"%@\",\"%@\");'>%@</a> ",
 					  tagName, threadId, color, threadId, tagName, username, [self moderationForThreadId:threadId inDocument:document], tagName];	
 	
 	element.innerHTML = [element.innerHTML stringByAppendingString:link];	
